@@ -17,7 +17,7 @@
    Type: Barlow Condensed (bold condensed display, the "kitchen ticket"
    voice) + Poppins (clean body).
    Photos: Jonathan's own shots in every data-photo slot, as <picture> with
-   WebP 800/1600 plus a JPEG fallback from photos/ (see build_images.sh),
+   WebP 800/1600 plus a JPEG fallback from photos/ (see build_images.py),
    object-fit: cover inside each slot's fixed aspect ratio.
    ========================================================================== */
 :root {
@@ -715,7 +715,7 @@ form { display: grid; gap: 18px; }
 
   .about-grid { gap: 26px; }
   .about-grid .photo { aspect-ratio: 4 / 3; }
-  .photo[data-photo="portrait"] img { object-position: 50% 30%; }
+  .photo[data-photo="portrait"] img { object-position: 50% 68%; }
   .about-copy .intro p + p { margin-top: 12px; }
   .pull { margin-top: 24px; }
   .facts { margin-top: 26px; }
@@ -858,7 +858,7 @@ form { display: grid; gap: 18px; }
       <figure class="photo" data-photo="portrait" data-tone="iron">
         <picture>
           <source type="image/webp" srcset="photos/portrait-800.webp 800w, photos/portrait-1600.webp 1080w" sizes="(min-width: 1200px) 480px, (min-width: 900px) 40vw, (min-width: 520px) 480px, calc(100vw - 32px)">
-          <img src="photos/portrait.jpg" width="1080" height="1350" alt="Jonathan Rushin in chef whites and a ball cap at the foot of a ship's stairway" decoding="async">
+          <img src="photos/portrait.jpg" width="1080" height="1080" alt="Jonathan Rushin, smiling, in a cap" decoding="async">
         </picture>
       </figure>
       <div class="about-copy">

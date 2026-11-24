@@ -4,7 +4,7 @@ index.html stays the artifact source (no doctype/html/head/body). This wraps it
 in a full document with SEO/social meta, copies photos/, and writes the Pages
 support files. It never touches jr-repo/.git and never commits.
 
-Usage: python3 -I build_site.py   (run build_images.sh first if photos changed)
+Usage: python3 -I build_site.py   (run build_images.py first if photos changed)
 """
 import os
 import re
@@ -240,10 +240,10 @@ README = """# jonathanrushin.com
 
 Personal site for Jonathan Rushin, private chef: one static page served by GitHub Pages from this repo (no build step on GitHub).
 
-Generated files: index.html and photos/ are build output. The editable source page (with EDIT comments marking what to personalize) and the two build scripts live in src/. Edit src/index.html, then run `python3 -I src/build_site.py` from anywhere; it rewrites index.html, README.md and the support files. Original photos are not in the repo; drop them in src/photos-src/ and run `bash src/build_images.sh` only if the photos change.
+Generated files: index.html and photos/ are build output. The editable source page (with EDIT comments marking what to personalize) and the two build scripts live in src/. Edit src/index.html, then run `python3 -I src/build_site.py` from anywhere; it rewrites index.html, README.md and the support files. Original photos are not in the repo; drop them in src/photos-src/ and run `python3 src/build_images.py` only if the photos change. The image build needs Pillow: `python3 -m pip install --user pillow`.
 
-- Rebuild: `bash src/build_images.sh` (original photos -> photos/: WebP 800/1600 and a JPEG fallback up to 1200 wide, all metadata stripped), then `python3 -I src/build_site.py` (writes this repo). Commit and push; Pages redeploys in a minute or two.
-- Change a photo: replace the original for that slot (keep the slot prefix, e.g. gallery-2-*.jpg) and rerun both scripts.
+- Rebuild: `python3 src/build_images.py` (original photos -> photos/: WebP 800/1600 and a JPEG fallback up to 1200 wide, all metadata stripped), then `python3 -I src/build_site.py` (writes this repo). Commit and push; Pages redeploys in a minute or two.
+- Change a photo: replace the original for that slot (keep the slot prefix, e.g. gallery-2-*.jpg) and rerun both scripts. From a phone, upload the photo on github.com into incoming/ and ask Claude to build it in (see CLAUDE.md).
 - Small text fix without the source: edit index.html here, then make the same edit in the source page so it survives the next rebuild.
 
 No analytics, cookies or third-party scripts. The only outside requests are Google Fonts. The contact form has no backend: it opens the visitor's email app with a pre-filled message to rushin97@gmail.com.
@@ -276,7 +276,7 @@ def main():
         fail("expected an initialised git repo at " + REPO)
     photos = PHOTOS
     if not os.path.isdir(photos) or not os.listdir(photos):
-        fail("photos/ is empty; run build_images.sh first")
+        fail("photos/ is empty; run build_images.py first")
     with open(os.path.join(HERE, "index.html"), encoding="utf-8") as fh:
         src = fh.read()
 
@@ -302,7 +302,7 @@ def main():
     write("robots.txt", ROBOTS)
     write("sitemap.xml", SITEMAP)
     write("README.md", README)
-    write(".gitignore", ".DS_Store\n")
+    write(".gitignore", ".DS_Store\nsrc/photos-src/\n__pycache__/\n")
 
     dst = os.path.join(REPO, "photos")
     if os.path.normpath(photos) != os.path.normpath(dst):
