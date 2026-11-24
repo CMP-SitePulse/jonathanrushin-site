@@ -133,31 +133,6 @@ def resized(im, width, round_up):
     return im.resize((width, height), Image.LANCZOS)
 
 
-def strip_jpeg(data):
-    """The source JPEG with every APPn (except JFIF APP0 and Adobe APP14) and
-    COM marker removed. Lossless: the image data is copied byte for byte."""
-    if data[:2] != b"\xff\xd8":
-        return None
-    out = bytearray(data[:2])
-    i = 2
-    while i + 4 <= len(data):
-        if data[i] != 0xFF:
-            return None
-        marker = data[i + 1]
-        if marker == 0xFF:
-            i += 1
-            continue
-        length = int.from_bytes(data[i + 2:i + 4], "big")
-        seg = data[i:i + 2 + length]
-        if marker == 0xDA:  # start of scan: the rest is image data
-            out += data[i:]
-            return bytes(out)
-        if not ((0xE1 <= marker <= 0xED) or marker == 0xEF or marker == 0xFE):
-            out += seg
-        i += 2 + length
-    return None
-
-
 def save_webp(im, path):
     im.save(path, "WEBP", quality=WEBP_Q, method=6)
 
@@ -200,17 +175,12 @@ def main():
             if sw > 800:
                 save_webp(resized(im, min(sw, 1600), True), os.path.join(tmp, slot + "-1600.webp"))
 
-            # JPEG fallback. If no resize or crop is needed and the re-encode
-            # is not smaller than the source, the source is used instead, with
-            # its metadata stripped losslessly.
+            # JPEG fallback. Always a fresh Pillow re-encode, never the source
+            # bytes, so no trailing data (multi-picture blocks, motion-photo
+            # video, anything after the first image) can reach the public site.
             small = resized(im, min(sw, JPEG_MAX), False)
             enc = jpeg_bytes(small)
             how = "q%d" % JPEG_Q
-            if small is im and not crop and not needs_transform(path):
-                with open(path, "rb") as fh:
-                    orig = strip_jpeg(fh.read())
-                if orig and len(enc) >= len(orig):
-                    enc, how = orig, "source, stripped"
             with open(os.path.join(tmp, slot + ".jpg"), "wb") as fh:
                 fh.write(enc)
             jw, jh = small.size
