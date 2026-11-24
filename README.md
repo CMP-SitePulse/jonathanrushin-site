@@ -2,9 +2,9 @@
 
 Personal site for Jonathan Rushin, private chef: one static page served by GitHub Pages from this repo (no build step on GitHub).
 
-Generated files: index.html and photos/ are build output. The editable source page, the original photos and the two build scripts are kept outside this repo; edits made only here are overwritten by the next rebuild.
+Generated files: index.html and photos/ are build output. The editable source page (with EDIT comments marking what to personalize) and the two build scripts live in src/. Edit src/index.html, then run `python3 -I src/build_site.py` from anywhere; it rewrites index.html, README.md and the support files. Original photos are not in the repo; drop them in src/photos-src/ and run `bash src/build_images.sh` only if the photos change.
 
-- Rebuild: `bash build_images.sh` (original photos -> photos/: WebP 800/1600 and a JPEG fallback up to 1200 wide, all metadata stripped), then `python3 -I build_site.py` (writes this repo). Commit and push; Pages redeploys in a minute or two.
+- Rebuild: `bash src/build_images.sh` (original photos -> photos/: WebP 800/1600 and a JPEG fallback up to 1200 wide, all metadata stripped), then `python3 -I src/build_site.py` (writes this repo). Commit and push; Pages redeploys in a minute or two.
 - Change a photo: replace the original for that slot (keep the slot prefix, e.g. gallery-2-*.jpg) and rerun both scripts.
 - Small text fix without the source: edit index.html here, then make the same edit in the source page so it survives the next rebuild.
 
