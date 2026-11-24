@@ -32,6 +32,7 @@ Never invent awards, press, quotes, reviews, employers, boat names, cities, pric
 - Slots: hero, portrait, service-dining, service-events, gallery-1 to gallery-6. Gallery-5 reads from `gallery-5-*.jpg`, or `spare-sandwich-*.jpg` when there is none (see SLOTS and SKIP in `src/build_images.py`).
 - Originals live in `src/photos-src/` (gitignored) as JPEG or PNG, named `<slot>-<anything>.jpg`, one per slot. HEIC cannot be read; ask for a JPEG.
 - Build: `python3 src/build_images.py`, then `python3 -I src/build_site.py`. If Pillow is missing, run `python3 -m pip install --user pillow` first. The image build strips all metadata and turns phone photos upright.
+- portrait-2 is the hidden second portrait, stacked over portrait: a sideways swipe or drag, or the left/right arrow keys, toggle it. No visible UI (dots, arrows, hint) by design.
 - Hero is a landscape crop. The others use object-fit: cover, so keep the subject near the middle.
 - If a new photo has a different shape, update that `<img>` width and height in `src/index.html`; the build checks them.
 - Never commit `src/photos-src/` or any original photo. Only the built files in `photos/` go in the repo.

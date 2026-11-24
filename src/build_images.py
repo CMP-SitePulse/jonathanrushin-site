@@ -39,6 +39,7 @@ EXTS = (".jpg", ".jpeg", ".png")
 SLOTS = [
     ("hero", ["hero"]),
     ("portrait", ["portrait"]),
+    ("portrait-2", ["portrait-2"]),
     ("service-dining", ["service-dining"]),
     ("service-events", ["service-events"]),
     ("gallery-1", ["gallery-1"]),
@@ -66,10 +67,14 @@ def fail(msg):
 
 
 def find_source(slot, prefixes, files):
+    # A longer prefix from another slot wins: portrait-2-*.jpg is never the
+    # portrait original, even though it starts with "portrait-".
+    longer = [p for _, ps in SLOTS for p in ps if p not in prefixes]
     for prefix in prefixes:
         hits = sorted(
             f for f in files
             if f.startswith(prefix + "-") and f.lower().endswith(EXTS) and f not in SKIP
+            and not any(len(p) > len(prefix) and f.startswith(p + "-") for p in longer)
         )
         if len(hits) > 1:
             print("build_images: %s: several originals, using %s (remove the others): %s"

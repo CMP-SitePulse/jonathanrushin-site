@@ -397,6 +397,14 @@ section[id] { scroll-margin-top: 84px; }
 .about-grid { display: grid; gap: 40px; }
 .about-grid > * { min-width: 0; }
 .about-grid .photo { aspect-ratio: 4 / 5; max-width: 480px; width: 100%; }
+/* Hidden second portrait. Both pictures fill the box; the second sits on top
+   at opacity 0 and visibility hidden until the script adds .is-alt. The cap
+   photo hides only after the fade, so the swap is a crossfade. The global
+   reduced-motion rule turns the transitions off. */
+.photo[data-photo="portrait"] { touch-action: pan-y; }
+.photo[data-photo="portrait"] picture + picture { opacity: 0; visibility: hidden; transition: opacity 220ms ease, visibility 0s linear 220ms; }
+.photo[data-photo="portrait"].is-alt picture + picture { opacity: 1; visibility: visible; transition: opacity 220ms ease, visibility 0s; }
+.photo[data-photo="portrait"].is-alt picture:first-child { visibility: hidden; transition: visibility 0s linear 220ms; }
 .about-copy .intro p + p { margin-top: 16px; }
 .pull { margin: 28px 0 0; padding-left: 18px; border-left: 3px solid var(--accent); }
 .pull p {
@@ -716,6 +724,7 @@ form { display: grid; gap: 18px; }
   .about-grid { gap: 26px; }
   .about-grid .photo { aspect-ratio: 4 / 3; }
   .photo[data-photo="portrait"] img { object-position: 50% 68%; }
+  .photo[data-photo="portrait"] picture + picture img { object-position: 50% 25%; }
   .about-copy .intro p + p { margin-top: 12px; }
   .pull { margin-top: 24px; }
   .facts { margin-top: 26px; }
@@ -855,10 +864,15 @@ form { display: grid; gap: 18px; }
   <!-- WHO HE IS -->
   <section class="band" id="about" aria-labelledby="about-h">
     <div class="wrap about-grid">
-      <figure class="photo" data-photo="portrait" data-tone="iron">
+      <!-- Hidden second portrait (portrait-2): a sideways swipe or drag, or the left/right arrow keys, swap the two photos. No visible control on purpose. -->
+      <figure class="photo" data-photo="portrait" data-tone="iron" tabindex="0" aria-roledescription="carousel" aria-label="Portrait of Jonathan Rushin. Swipe or use arrow keys for a second photo.">
         <picture>
           <source type="image/webp" srcset="photos/portrait-800.webp 800w, photos/portrait-1600.webp 1080w" sizes="(min-width: 1200px) 480px, (min-width: 900px) 40vw, (min-width: 520px) 480px, calc(100vw - 32px)">
           <img src="photos/portrait.jpg" width="1080" height="1080" alt="Jonathan Rushin, smiling, in a cap" decoding="async">
+        </picture>
+        <picture>
+          <source type="image/webp" srcset="photos/portrait-2-800.webp 800w, photos/portrait-2-1600.webp 1080w" sizes="(min-width: 1200px) 480px, (min-width: 900px) 40vw, (min-width: 520px) 480px, calc(100vw - 32px)">
+          <img src="photos/portrait-2.jpg" width="1080" height="1350" alt="Jonathan Rushin in chef whites on deck" loading="lazy" decoding="async">
         </picture>
       </figure>
       <div class="about-copy">
@@ -1190,6 +1204,37 @@ form { display: grid; gap: 18px; }
     var wide = window.matchMedia("(min-width: 980px)");
     var onWide = function () { if (wide.matches) setNav(false); };
     if (wide.addEventListener) wide.addEventListener("change", onWide); else if (wide.addListener) wide.addListener(onWide);
+  }
+
+  /* hidden second portrait: a sideways drag over 40px, or left/right arrow
+     keys while it has focus, swaps the photos. No visible control on purpose.
+     Touch is never preventDefault-ed, so the page always scrolls. */
+  var pf = document.querySelector('.photo[data-photo="portrait"]');
+  if (pf && pf.querySelectorAll("picture").length > 1) {
+    var px = null, py = 0, pid = null;
+    var flip = function () { pf.classList.toggle("is-alt"); };
+    var stop = function () { px = null; pid = null; };
+    pf.addEventListener("pointerdown", function (e) {
+      if (e.button > 0 || px !== null) return;
+      px = e.clientX; py = e.clientY; pid = e.pointerId;
+      if (e.pointerType === "mouse") {
+        e.preventDefault();
+        try { pf.setPointerCapture(pid); } catch (err) {}
+      }
+    });
+    pf.addEventListener("pointermove", function (e) {
+      if (px === null || e.pointerId !== pid) return;
+      var dx = Math.abs(e.clientX - px), dy = Math.abs(e.clientY - py);
+      if (dx > 40 && dx > dy) { stop(); flip(); }
+      else if (dy > 40) stop();
+    });
+    pf.addEventListener("pointerup", stop);
+    pf.addEventListener("pointercancel", stop);
+    pf.addEventListener("dragstart", function (e) { e.preventDefault(); });
+    pf.addEventListener("keydown", function (e) {
+      if (e.target !== pf || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); flip(); }
+    });
   }
 
   /* copy email */
