@@ -665,6 +665,114 @@ form { display: grid; gap: 18px; }
   justify-content: space-between;
   gap: 8px 24px;
 }
+
+@media (min-width: 600px) {
+  .mobile-nav .mn-book { display: none; }
+  .mobile-nav .mn-book + li { border-top: 0; }
+}
+@media (max-width: 899px) {
+  body { font-size: 15px; line-height: 1.58; }
+  .band .wrap { padding-block: 44px; }
+  #about .wrap { padding-top: 28px; }
+  .sec-head { margin-bottom: 28px; }
+  .intro { margin-top: 14px; }
+  .eyebrow { margin-bottom: 10px; }
+
+  .utility .wrap { flex-wrap: nowrap; padding-block: 6px; line-height: 1.4; }
+  .utility span { white-space: nowrap; }
+  .site-header > .wrap { padding-block: 6px; }
+  .wm-name { font-size: 21px; }
+  .wm-role { margin-top: 5px; }
+  .mobile-nav a { padding: 12px 0; }
+  .mobile-nav .mn-book a { color: var(--accent-ink); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 14px; }
+
+  .hero .wrap { padding-block: 0 48px; gap: 26px; }
+  .hero .photo {
+    order: -1;
+    aspect-ratio: 16 / 9;
+    max-width: none;
+    margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+    margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
+  }
+  .photo[data-photo="hero"] img { object-position: 50% 55%; }
+  .hero-eyebrow { margin-bottom: 14px; }
+  .hero h1 { font-size: clamp(2.3rem, 11vw, 4.4rem); }
+  .hero-lede { margin-top: 16px; font-size: 15.5px; }
+  .hero-cta { margin-top: 24px; }
+
+  .about-grid { gap: 26px; }
+  .about-grid .photo { aspect-ratio: 4 / 3; }
+  .photo[data-photo="portrait"] img { object-position: 50% 30%; }
+  .about-copy .intro p + p { margin-top: 12px; }
+  .pull { margin-top: 24px; }
+  .facts { margin-top: 26px; }
+  .facts div { padding-block: 12px; }
+
+  .menu-sheet-head { padding-bottom: 14px; }
+  .course { padding-block: 14px; }
+  .menu-note { margin-top: 16px; }
+  .why-cols > div { padding-block: 20px; }
+  .svc-more { margin-top: 28px; }
+  .svc-more > div { padding-block: 20px; }
+  .svc-more h3 { font-size: 1.55rem; margin-bottom: 6px; }
+
+  .faq-grid { gap: 24px; }
+  .faq-list summary { padding-block: 16px; font-size: 16px; }
+  .faq-list details p { padding-bottom: 18px; }
+
+  .contact-grid { gap: 30px; }
+  .contact-side .intro { margin-bottom: 22px; }
+  .email-row { flex-wrap: nowrap; justify-content: space-between; padding-block: 10px; }
+  .copy-btn { flex: 0 0 auto; min-height: 44px; }
+  .c-more { margin-top: 14px; }
+  form { gap: 14px; }
+  .f-row { gap: 14px; }
+  .field input, .field select, .field textarea { min-height: 44px; padding: 9px 12px; }
+  .field select { padding-right: 34px; }
+  .field textarea { min-height: 104px; }
+
+  .site-footer .wrap { padding-top: 48px; }
+  .f-cols { gap: 28px; padding-bottom: 28px; }
+}
+@media (max-width: 374px) {
+  .hero-eyebrow { letter-spacing: 0.12em; }
+  .f-cols > div:nth-child(2) ul { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+}
+@media (max-width: 819px) {
+  .svc-cards { gap: 16px; }
+  .svc-card { display: block; min-height: 0; background: var(--char-1); }
+  .svc-card > .photo { position: relative; inset: auto; aspect-ratio: 16 / 10; }
+  .svc-card::after { content: none; }
+  .svc-body { padding: 20px 20px 24px; gap: 8px; }
+  .svc-body h3 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+
+  .g-grid { grid-auto-rows: auto; gap: 8px; }
+  .g-grid .photo { height: auto; aspect-ratio: 1; }
+  .g-a, .g-d { grid-column: auto; grid-row: auto; }
+}
+@media (min-width: 600px) and (max-width: 819px) {
+  .g-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 599px) {
+  .header-actions .btn { display: none; }
+  .hero .photo { aspect-ratio: 3 / 2; }
+  .hero-cta .sub { display: none; }
+}
+@media (min-width: 375px) and (max-width: 819px) {
+  .f-cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+  .f-cols > div:first-child { grid-column: 1 / -1; }
+  .f-cols > div:nth-child(2) ul { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 479px) {
+  .facts div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .facts dt { padding-top: 0; }
+}
+@media (min-width: 760px) and (max-width: 899px) {
+  .hero .photo {
+    margin-left: calc(-1 * max(32px, env(safe-area-inset-left, 0px)));
+    margin-right: calc(-1 * max(32px, env(safe-area-inset-right, 0px)));
+  }
+}
 </style>
 </head>
 <body>
@@ -699,6 +807,7 @@ form { display: grid; gap: 18px; }
   <nav class="mobile-nav" id="mobile-nav" aria-label="Main mobile" hidden>
     <div class="wrap">
       <ul>
+        <li class="mn-book"><a href="#contact">Book a Dinner</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#services">Private Dining</a></li>
         <li><a href="#menu">Menus</a></li>
@@ -723,7 +832,7 @@ form { display: grid; gap: 18px; }
       </div>
       <figure class="photo" data-photo="hero" data-tone="brick">
         <picture>
-          <source type="image/webp" srcset="photos/hero-800.webp 800w, photos/hero-1600.webp 1440w" sizes="(min-width: 1200px) 800px, (min-width: 900px) 66vw, (min-width: 760px) calc(100vw - 64px), calc(100vw - 32px)">
+          <source type="image/webp" srcset="photos/hero-800.webp 800w, photos/hero-1600.webp 1440w" sizes="(min-width: 1200px) 800px, (min-width: 900px) 66vw, 100vw">
           <img src="photos/hero.jpg" width="1200" height="900" alt="A large commercial fishing vessel tied up at a dock under a blue sky" fetchpriority="high" decoding="async">
         </picture>
       </figure>
@@ -742,7 +851,7 @@ form { display: grid; gap: 18px; }
         <p class="eyebrow">Who he is</p>
         <h2 class="headline" id="about-h">Escoffier-trained. Galley-tested.</h2>
         <div class="intro">
-          <p>Jonathan was born in New York and raised in Ingleside, on the Texas Gulf Coast. He trained at Escoffier and has spent more than fifteen years in professional kitchens, including a run as Kitchen Manager and Chef at The Rotten Bunch Wine Bar + Kitchen in Austin, cooking a Southern and Mediterranean menu built to go with wine.</p>
+          <p>Jonathan spent his early years in New York and grew up in Ingleside, on the Texas Gulf Coast. He trained at Escoffier and has spent more than fifteen years in professional kitchens, including a run as Kitchen Manager and Chef at The Rotten Bunch Wine Bar + Kitchen in Austin, cooking a Southern and Mediterranean menu built to go with wine.</p>
           <p>For about six years he has worked aboard a commercial fishing vessel in Alaska, and he has been its Chief Steward since 2023. He runs the galley: feeding a working crew every day of the season, provisioning for weeks at sea, and getting dinner out in rough water. Between seasons he cooks for private tables, with butchery, fresh sausage, boards built by hand, and menus planned around the people eating them. Process, progress, proceed.</p>
         </div>
         <blockquote class="pull">
@@ -753,7 +862,7 @@ form { display: grid; gap: 18px; }
           <div><dt>Trained</dt><dd>Auguste Escoffier School of Culinary Arts, class of 2016</dd></div>
           <div><dt>Galley</dt><dd>Six years aboard a commercial fishing vessel in Alaska, Chief Steward since 2023</dd></div>
           <div><dt>Kitchen</dt><dd>Formerly Kitchen Manager and Chef, The Rotten Bunch Wine Bar + Kitchen, Austin</dd></div>
-          <div><dt>Roots</dt><dd>Born in New York, raised in Ingleside on the Texas Gulf Coast</dd></div>
+          <div><dt>Roots</dt><dd>Early years in New York, raised in Ingleside on the Texas Gulf Coast</dd></div>
           <div><dt>Cooking</dt><dd>Southern and Mediterranean, boards, butchery, fresh sausage</dd></div>
         </dl>
       </div>
@@ -771,7 +880,7 @@ form { display: grid; gap: 18px; }
         <article class="svc-card">
           <div class="photo" data-photo="service-dining" data-tone="char">
             <picture>
-              <source type="image/webp" srcset="photos/service-dining-800.webp 800w, photos/service-dining-1600.webp 1440w" sizes="(min-width: 820px) 750px, 720px">
+              <source type="image/webp" srcset="photos/service-dining-800.webp 800w, photos/service-dining-1600.webp 1440w" sizes="(min-width: 820px) 750px, (min-width: 760px) calc(100vw - 64px), calc(100vw - 32px)">
               <img src="photos/service-dining.jpg" width="1200" height="900" alt="Charcuterie board with cheeses, cured meats, smoked salmon, fruit and dips" loading="lazy" decoding="async">
             </picture>
           </div>
@@ -784,7 +893,7 @@ form { display: grid; gap: 18px; }
         <article class="svc-card">
           <div class="photo" data-photo="service-events" data-tone="brick">
             <picture>
-              <source type="image/webp" srcset="photos/service-events-800.webp 800w, photos/service-events-1600.webp 1440w" sizes="(min-width: 820px) 625px, (min-width: 640px) calc(100vw - 32px), 600px">
+              <source type="image/webp" srcset="photos/service-events-800.webp 800w, photos/service-events-1600.webp 1440w" sizes="(min-width: 820px) 625px, (min-width: 760px) calc(100vw - 64px), calc(100vw - 32px)">
               <img src="photos/service-events.jpg" width="1200" height="1081" alt="Two glazed bread loaves on a party board with fruit, crackers, sliced bread and nuts" loading="lazy" decoding="async">
             </picture>
           </div>
@@ -857,37 +966,37 @@ form { display: grid; gap: 18px; }
       <div class="g-grid">
         <figure class="photo g-a" data-photo="gallery-1" data-tone="char">
           <picture>
-            <source type="image/webp" srcset="photos/gallery-1-800.webp 800w, photos/gallery-1-1600.webp 1080w" sizes="(min-width: 1200px) 660px, (min-width: 820px) 54vw, calc(100vw - 32px)">
+            <source type="image/webp" srcset="photos/gallery-1-800.webp 800w, photos/gallery-1-1600.webp 1080w" sizes="(min-width: 1200px) 660px, (min-width: 820px) 54vw, (min-width: 760px) calc(33.3vw - 27px), (min-width: 600px) calc(33.3vw - 16px), calc(50vw - 20px)">
             <img src="photos/gallery-1.jpg" width="1080" height="1350" alt="Baked brie topped with berries on a board with crackers and fruit" loading="lazy" decoding="async">
           </picture>
         </figure>
         <figure class="photo g-b" data-photo="gallery-2" data-tone="steel">
           <picture>
-            <source type="image/webp" srcset="photos/gallery-2-800.webp 800w, photos/gallery-2-1600.webp 1080w" sizes="(min-width: 1200px) 470px, (min-width: 820px) 38vw, calc(50vw - 21px)">
+            <source type="image/webp" srcset="photos/gallery-2-800.webp 800w, photos/gallery-2-1600.webp 1080w" sizes="(min-width: 1200px) 470px, (min-width: 820px) 38vw, (min-width: 760px) calc(33.3vw - 27px), (min-width: 600px) calc(33.3vw - 16px), calc(50vw - 20px)">
             <img src="photos/gallery-2.jpg" width="1080" height="1080" alt="Racks of lamb searing on a flat-top grill" loading="lazy" decoding="async">
           </picture>
         </figure>
         <figure class="photo g-c" data-photo="gallery-3" data-tone="brick">
           <picture>
-            <source type="image/webp" srcset="photos/gallery-3-800.webp 636w" sizes="(min-width: 1200px) 470px, (min-width: 820px) 38vw, calc(50vw - 21px)">
+            <source type="image/webp" srcset="photos/gallery-3-800.webp 636w" sizes="(min-width: 1200px) 470px, (min-width: 820px) 38vw, (min-width: 760px) calc(33.3vw - 27px), (min-width: 600px) calc(33.3vw - 16px), calc(50vw - 20px)">
             <img src="photos/gallery-3.jpg" width="636" height="795" alt="Plate of grilled sausage, corn on the cob, chicken, sliced steak and beans" loading="lazy" decoding="async">
           </picture>
         </figure>
         <figure class="photo g-d" data-photo="gallery-4" data-tone="sea">
           <picture>
-            <source type="image/webp" srcset="photos/gallery-4-800.webp 800w, photos/gallery-4-1600.webp 1080w" sizes="(min-width: 1200px) 370px, (min-width: 820px) 31vw, calc(100vw - 32px)">
+            <source type="image/webp" srcset="photos/gallery-4-800.webp 800w, photos/gallery-4-1600.webp 1080w" sizes="(min-width: 1200px) 370px, (min-width: 820px) 31vw, (min-width: 760px) calc(33.3vw - 27px), (min-width: 600px) calc(33.3vw - 16px), calc(50vw - 20px)">
             <img src="photos/gallery-4.jpg" width="1080" height="1080" alt="Snow-covered mountains across open water, seen from a boat" loading="lazy" decoding="async">
           </picture>
         </figure>
         <figure class="photo g-e" data-photo="gallery-5" data-tone="iron">
           <picture>
-            <source type="image/webp" srcset="photos/gallery-5-800.webp 800w, photos/gallery-5-1600.webp 1440w" sizes="(min-width: 1200px) 470px, (min-width: 820px) 38vw, calc(50vw - 21px)">
+            <source type="image/webp" srcset="photos/gallery-5-800.webp 800w, photos/gallery-5-1600.webp 1440w" sizes="(min-width: 1200px) 470px, (min-width: 820px) 38vw, (min-width: 760px) calc(33.3vw - 27px), (min-width: 600px) calc(33.3vw - 16px), calc(50vw - 20px)">
             <img src="photos/gallery-5.jpg" width="1200" height="1500" alt="Open-faced roast beef sandwiches with pickled red onion on a sheet pan" loading="lazy" decoding="async">
           </picture>
         </figure>
         <figure class="photo g-f" data-photo="gallery-6" data-tone="salt">
           <picture>
-            <source type="image/webp" srcset="photos/gallery-6-800.webp 800w, photos/gallery-6-1600.webp 1080w" sizes="(min-width: 1200px) 280px, (min-width: 820px) 23vw, calc(50vw - 21px)">
+            <source type="image/webp" srcset="photos/gallery-6-800.webp 800w, photos/gallery-6-1600.webp 1080w" sizes="(min-width: 1200px) 280px, (min-width: 820px) 23vw, (min-width: 760px) calc(33.3vw - 27px), (min-width: 600px) calc(33.3vw - 16px), calc(50vw - 20px)">
             <img src="photos/gallery-6.jpg" width="1080" height="1325" alt="Seared salmon with grain salad, squash, watercress and lemon" loading="lazy" decoding="async">
           </picture>
         </figure>
